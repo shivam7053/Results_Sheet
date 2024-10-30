@@ -1,0 +1,48 @@
+<!-- results/templates/results/student_performance.html -->
+{% extends "results/base.html" %}
+
+{% block title %}Student Performance{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Student Performance Visualization</h1>
+
+    <form method="get" class="mb-4">
+        <div class="mb-3">
+            <label for="roll_no" class="form-label">Enter University Roll No:</label>
+            <input type="text" name="roll_no" id="roll_no" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Visualize</button>
+    </form>
+
+    {% if performance_data %}
+        <h2 class="mt-5">Performance for Roll No: {{ roll_no }}</h2>
+        <div class="text-center">
+            <img src="data:image/png;base64,{{ performance_data }}" alt="Performance Chart" class="img-fluid">
+        </div>
+    {% endif %}
+
+    {% if subject_marks_data %}
+        <h2 class="mt-5">Subject Marks for Latest Semester</h2>
+        <div class="text-center">
+            <img src="data:image/png;base64,{{ subject_marks_data }}" alt="Subject Marks Chart" class="img-fluid">
+        </div>
+    {% endif %}
+
+    {% if pie_chart_data %}
+        <h2 class="mt-5">Overall Performance Distribution</h2>
+        <div class="text-center">
+            <img src="data:image/png;base64,{{ pie_chart_data }}" alt="Performance Distribution Pie Chart" class="img-fluid">
+        </div>
+    {% endif %}
+
+    {% if comparison_data %}
+        <h2 class="mt-5">Average Performance Comparison</h2>
+        <div class="text-center">
+            <img src="data:image/png;base64,{{ comparison_data }}" alt="Average Comparison Chart" class="img-fluid">
+        </div>
+    {% endif %}
+
+    {% if roll_no and not performance_data %}
+        <p class="alert alert-warning mt-4">No performance data found for Roll No: {{ roll_no }}</p>
+    {% endif %}
+{% endblock %}

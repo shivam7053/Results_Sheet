@@ -1,0 +1,76 @@
+<!-- results/templates/results/result_list.html -->
+{% extends "results/base.html" %}
+
+{% block title %}Student Results{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Student Results</h1>
+    
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <label for="college" class="form-label">College:</label>
+            <input type="text" name="college" id="college" class="form-control">
+        </div>
+        <div class="col-md-4">
+            <label for="batch" class="form-label">Batch:</label>
+            <input type="number" name="batch" id="batch" class="form-control">
+        </div>
+        <div class="col-md-4">
+            <label for="semester" class="form-label">Semester:</label>
+            <input type="number" name="semester" id="semester" class="form-control">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </form>
+
+    <!-- Scrollable Table Container -->
+    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>University Roll No</th>
+                    <th>Batch</th>
+                    {% if not semester_filter %}
+                        <th>Overall Average</th>
+                    {% else %}
+                        <th>College Name</th>
+                        <th>Semester</th>
+                        <th>Subject 1</th>
+                        <th>Subject 2</th>
+                        <th>Subject 3</th>
+                        <th>Subject 4</th>
+                        <th>Subject 5</th>
+                        <th>Subject 6</th>
+                        <th>Average</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.university_roll_no }}</td>
+                        <td>{{ result.batch }}</td>
+                        {% if not semester_filter %}
+                            <td>{{ result.overall_avg }}</td>
+                        {% else %}
+                            <td>{{ result.college_name }}</td>
+                            <td>{{ result.semester }}</td>
+                            <td>{{ result.subject_1 }}</td>
+                            <td>{{ result.subject_2 }}</td>
+                            <td>{{ result.subject_3 }}</td>
+                            <td>{{ result.subject_4 }}</td>
+                            <td>{{ result.subject_5 }}</td>
+                            <td>{{ result.subject_6 }}</td>
+                            <td>{{ result.semester_avg }}</td>
+                        {% endif %}
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="11" class="text-center">No results found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
