@@ -1,2 +1,0 @@
-# Results_Sheet
-django
